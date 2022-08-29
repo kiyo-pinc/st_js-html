@@ -1,0 +1,96 @@
+//custom-bootstrap-var
+
+// Spacing
+$spacer: 0.25rem;
+$spacers: ();
+$spacers: map-merge(
+  (
+    0: 0,
+    1: ( $spacer * 1, ),
+    2: ( $spacer * 2, ),
+    3: ( $spacer * 3, ),
+    4: ( $spacer * 4, ),
+    5: ( $spacer * 5, ),
+    6: ( $spacer * 6, ),
+    7: ( $spacer * 7, ),
+    8: ( $spacer * 8, ),
+    9: ( $spacer * 9, ),
+    10: ( $spacer * 10, ),
+    11: ( $spacer * 11, ),
+    12: ( $spacer * 12, ),
+    13: ( $spacer * 13, ),
+    14: ( $spacer * 14, ),
+    15: ( $spacer * 15, ),
+    16: ( $spacer * 16, ),
+    17: ( $spacer * 17, ),
+    18: ( $spacer * 18, ),
+    19: ( $spacer * 19, ),
+    20: ( $spacer * 20, ),
+    24: ( $spacer * 24, ),
+    26: ( $spacer * 26, ),
+    28: ( $spacer * 28, ),
+    30: ( $spacer * 30, ),
+    32: ( $spacer * 32, ),
+    34: ( $spacer * 34, ),
+    36: ( $spacer * 36, ),
+    38: ( $spacer * 38, ),
+    40: ( $spacer * 40, ),
+    42: ( $spacer * 42, ),
+    44: ( $spacer * 44, ),
+    46: ( $spacer * 46, ),
+    48: ( $spacer * 48, ),
+    50: ( $spacer * 50, ),
+    52: ( $spacer * 52, ),
+    54: ( $spacer * 54, ),
+    56: ( $spacer * 56, ),
+    58: ( $spacer * 58, ),
+    60: ( $spacer * 60, ),
+    62: ( $spacer * 62, ),
+    64: ( $spacer * 64, ),
+    66: ( $spacer * 66, ),
+    68: ( $spacer * 68, ),
+    70: ( $spacer * 70, ),
+    72: ( $spacer * 72, ),
+    74: ( $spacer * 74, ),
+    76: ( $spacer * 76, ),
+    78: ( $spacer * 78, ),
+    80: ( $spacer * 80, ),
+  ),
+  $spacers
+);
+
+// Typography
+$font-family-sans-serif: "Noto Sans JP", -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+  "Liberation Mono", "Courier New", monospace;
+$font-family-base: $font-family-sans-serif;
+$font-size-base: 1rem; //16px
+$h1-font-size: $font-size-base * 2.3; //32px
+$h2-font-size: $font-size-base * 2; //28px
+$h3-font-size: $font-size-base * 1.8; //26px
+$h4-font-size: $font-size-base * 1.5; //21px
+$h5-font-size: $font-size-base * 1.28; //18px
+$h6-font-size: $font-size-base * 1.14; //16px
+$h7-font-size: $font-size-base; //14px
+$h8-font-size: $font-size-base * 0.7; //10px
+
+$border-radius: 0.5rem;
+$border-radius-lg: 0.6rem;
+$border-radius-sm: 0.4rem;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);

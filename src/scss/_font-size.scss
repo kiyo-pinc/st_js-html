@@ -1,0 +1,76 @@
+@for $i from 10 through 60 {
+	.f-#{$i} {
+		font-size: #{$i}px;
+	}
+}
+
+@include media-breakpoint-up(sm) {
+	@for $i from 10 through 60 {
+		.f-sm-#{$i} {
+			font-size: #{$i}px;
+		}
+	}
+}
+
+@include media-breakpoint-up(md) {
+	@for $i from 10 through 60 {
+		.f-md-#{$i} {
+			font-size: #{$i}px;
+		}
+	}
+}
+
+@include media-breakpoint-up(lg) {
+	@for $i from 10 through 60 {
+		.f-lg-#{$i} {
+			font-size: #{$i}px;
+		}
+	}
+}
+
+@include media-breakpoint-up(xl) {
+	@for $i from 10 through 60 {
+		.f-xl-#{$i} {
+			font-size: #{$i}px;
+		}
+	}
+}
+
+// line height
+@for $i from 10 through 30 {
+  .lh-#{$i} {
+    line-height: #{$i * 0.1};
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  @for $i from 10 through 30 {
+    .lh-sm-#{$i} {
+      line-height: #{$i * 0.1};
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  @for $i from 10 through 30 {
+    .lh-md-#{$i} {
+      line-height: #{$i * 0.1};
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  @for $i from 10 through 30 {
+    .lh-lg-#{$i} {
+      line-height: #{$i * 0.1};
+    }
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  @for $i from 10 through 30 {
+    .lh-xl-#{$i} {
+      line-height: #{$i * 0.1};
+    }
+  }
+}
