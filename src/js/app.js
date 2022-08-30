@@ -1,44 +1,214 @@
-const creatHeader = (body) => {
-  const header = document.createElement('header');
-  const link = document.createElement('a');
-  const headingTxt = document.createTextNode('My Work');
+const { wrap } = require("gsap");
 
-  body.appendChild(header);
-  header.appendChild(link);
-  link.href = 'https://google.com';
-  link.target = '_blank';
-  link.id = 'headerLink'
-  link.dataset.page = 'top';
-  link.appendChild(headingTxt);
+const productList = [
+  {
+    product: 'Croissant',
+    img: 'img-croissant.png',
+    price: 2,
+    description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit',
+    count: 0,
+  },
+  {
+    product: 'Rice Flour Bread',
+    img: 'img-rice_flour_bread.png',
+    price: 5,
+    description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit',
+    count: 0,
+  },
+  {
+    product: 'Rye Bread',
+    img: 'img-rye_bread.png',
+    price: 3,
+    description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit',
+    count: 0,
+  },
+];
 
-  header.style.cssText = `
-  margin: 0 auto;
-  padding: 6rem 2rem;
-  max-width: 900px;
-  font-size: 28px;
-  `;
+const createHeader = (app) => {
+  const
+    header = document.createElement('header'),
+    headerWrapper = document.createElement('div'),
+    logoArea = document.createElement('div'),
+    cartArea = document.createElement('div'),
+    logoImg = document.createElement('img'),
+    cartImg = document.createElement('img'),
+    logoLink = document.createElement('a');
 
-  link.style.cssText = `
-  color: #24292e;
-  text-decoration: none;
-  `;
+  header.style.padding = '1rem 0';
+  header.style.backgroundColor = '#6666664D';
+  header.style.position = 'fixed';
+  header.style.top = '0';
+  header.style.left = '0';
+  header.style.width = '100%';
 
-  link.addEventListener('mouseover', () => {
-    link.style.cssText = `
-    color: #f00;
-    text-decoration: none;
-    `;
-  });
+  headerWrapper.style.width = '100%';
+  headerWrapper.style.maxWidth = '1300px';
+  headerWrapper.style.margin = '0 auto';
+  headerWrapper.style.display = 'flex';
+  headerWrapper.style.alignItems = 'center';
+  headerWrapper.style.justifyContent = 'space-between';
 
-  link.addEventListener('mouseleave', () => {
-    link.style.cssText = `
-    color: #24292e;
-    text-decoration: none;
-    `;
-  });
+  logoImg.src = '../img/logo-bakery.svg';
+  logoImg.style.display = 'block';
+  logoImg.style.width = '76px';
+  logoLink.href = '/';
+
+  logoLink.appendChild(logoImg);
+  logoArea.appendChild(logoLink);
+
+  cartArea.style.justifyContent = 'end';
+  cartImg.src = '../img/icon-cart.svg';
+  cartImg.style.display = 'block';
+  cartImg.style.width = '36px';
+  cartImg.style.cursor = 'pointer';
+  cartImg.id = 'cartBtn';
+
+  cartArea.appendChild(cartImg);
+
+  headerWrapper.appendChild(logoArea);
+  headerWrapper.appendChild(cartArea);
+  header.appendChild(headerWrapper);
+  app.appendChild(header);
+}
+
+const createHero = (app) => {
+  const
+    section = document.createElement('section'),
+    heroImg = document.createElement('img');
+  heroImg.src = '../img/img-hero.jpg'
+  heroImg.alt = 'hero';
+  heroImg.style.width = '100%';
+  heroImg.style.display = 'block';
+
+  section.appendChild(heroImg);
+  app.appendChild(section);
+}
+
+const createOurProducts = (app) => {
+  const
+    section = document.createElement('section'),
+    hedding = document.createElement('h2'),
+    heddingText = document.createTextNode('Our products'),
+    read = document.createElement('p'),
+    readText = document.createTextNode('Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy tincidunt ut laoreet dolore magna aliquam erat volutpat.');
+
+  read.style.fontSize = '24px';
+  read.style.width = '100%';
+  read.style.maxWidth = '800px';
+  read.style.margin = '0 auto 80px';
+  read.appendChild(readText);
+
+  hedding.style.fontSize = '24px';
+  hedding.style.fontWeight = 'bold';
+  hedding.style.marginBottom = '10px';
+
+  hedding.appendChild(heddingText);
+
+  section.style.width = '100%';
+  section.style.maxWidth = '1300px';
+  section.style.margin = '0 auto';
+  section.style.textAlign = 'center';
+  section.style.paddingTop = '40px';
+  section.style.paddingBottom = '80px';
+
+  section.appendChild(hedding);
+  section.appendChild(read);
+  app.appendChild(section);
+}
+
+const createProducts = (app) => {
+  const section = document.createElement('section');
+  const wrapper = document.createElement('div');
+
+  const productsRender = () => {
+    for (let i = 0; i < productList.length; i++) {
+      const
+        productBox = document.createElement('div'),
+        productTitle = document.createElement('h3'),
+        productImg = document.createElement('img'),
+        productPrice = document.createElement('div'),
+        currency = document.createTextNode('USD '),
+        productDescription = document.createElement('p'),
+        addCartBtn = document.createElement('button');
+
+      productBox.style.width = 'calc(100% / 3)';
+      productImg.style.width = '100%';
+      productImg.style.display = 'block';
+      productImg.style.padding = '0 3rem';
+      productImg.style.marginBottom = '40px';
+      productTitle.style.fontSize = '16px';
+      productTitle.style.fontWeight = 'bold';
+      productTitle.style.marginBottom = '4px';
+      productPrice.style.marginBottom = '4px';
+      productDescription.style.margin = '0 auto 1rem';
+      productDescription.style.width = '250px';
+
+      productTitle.innerText = productList[i].product;
+      productImg.src = `../img/${productList[i].img}`;
+      productPrice.appendChild(currency);
+      productPrice.appendChild(document.createTextNode(productList[i].price));
+      productDescription.innerText = productList[i].description;
+      addCartBtn.innerText = 'add cart';
+      addCartBtn.style.appearance = 'none';
+      addCartBtn.style.border = 'none';
+      addCartBtn.style.borderRadius = '100px';
+      addCartBtn.style.color = '#fff';
+      addCartBtn.style.backgroundColor = '#000';
+      addCartBtn.style.padding = '.5rem 1rem';
+
+      productBox.appendChild(productImg);
+      productBox.appendChild(productTitle);
+      productBox.appendChild(productPrice);
+      productBox.appendChild(productDescription);
+      productBox.appendChild(addCartBtn);
+
+      wrapper.appendChild(productBox);
+    }
+    return;
+  };
+  productsRender();
+
+  wrapper.style.display = 'flex';
+  wrapper.style.flexWrap = 'wrap';
+
+  section.style.width = '100%';
+  section.style.maxWidth = '1300px';
+  section.style.margin = '0 auto';
+  section.style.textAlign = 'center';
+  section.style.paddingTop = '40px';
+  section.style.paddingBottom = '130px';
+  section.appendChild(wrapper);
+
+  app.appendChild(section);
+}
+
+const createFooter = (app) => {
+  const
+    footer = document.createElement('footer'),
+    logoLink = document.createElement('a'),
+    footerLogo = document.createElement('img');
+
+  footer.style.padding = '100px 0';
+  footer.style.display = 'flex';
+  footer.style.alignItems = 'center';
+  footer.style.justifyContent = 'center';
+  footer.style.backgroundColor = '#000';
+
+  logoLink.href = '/';
+
+  footerLogo.src = '../img/logo-bakery.svg';
+  footerLogo.style.width = '76px';
+
+  logoLink.appendChild(footerLogo);
+  footer.appendChild(logoLink);
+  app.appendChild(footer);
 }
 
 window.addEventListener('load', () => {
-  const body = document.querySelector('body');
-  creatHeader(body);
+  const app = document.querySelector('#app');
+  createHeader(app);
+  createHero(app);
+  createOurProducts(app);
+  createProducts(app);
+  createFooter(app);
 })
