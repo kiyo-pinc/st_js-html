@@ -1,5 +1,3 @@
-const { wrap } = require("gsap");
-
 const productList = [
   {
     product: 'Croissant',
