@@ -1,5 +1,3 @@
-const { wrap } = require("gsap");
-
 const productList = [
   {
     product: 'Croissant',
@@ -202,6 +200,13 @@ const createFooter = (app) => {
   logoLink.appendChild(footerLogo);
   footer.appendChild(logoLink);
   app.appendChild(footer);
+}
+
+const addModal = () => {
+  const
+    modalBody = document.createElement('div'),
+    modalHeddingTextArea = document.createElement('h3'),
+    modalHeddingText = dcument.createTextNode('add this item to your cart?');
 }
 
 window.addEventListener('load', () => {
