@@ -202,18 +202,49 @@ const createFooter = (app) => {
   app.appendChild(footer);
 }
 
-const addModal = () => {
+const addModal = (app) => {
   const
     modalBody = document.createElement('div'),
+    modalMainArea = document.createElement('div'),
     modalHeddingTextArea = document.createElement('h3'),
-    modalHeddingText = dcument.createTextNode('add this item to your cart?');
+    modalHeddingText = document.createTextNode('add this item to your cart?');
+
+  modalHeddingTextArea.style.fontSize = '20px';
+  modalHeddingTextArea.style.fontWeight = '400';
+  modalHeddingTextArea.style.paddingBottom = '1rem';
+  modalHeddingTextArea.style.borderBottom = '1px solid rgba(0, 0, 0, .6)';
+
+  modalMainArea.style.position = 'absolute';
+  modalMainArea.style.top = '50%';
+  modalMainArea.style.left = '50%';
+  modalMainArea.style.transform = 'translate(-50%, -50%)';
+  modalMainArea.style.width = 'calc(100% - 2rem)';
+  modalMainArea.style.height = 'calc(100% - 2rem)';
+  modalMainArea.style.maxWidth = '340px';
+  modalMainArea.style.maxHeight = '400px';
+  modalMainArea.style.padding = '20px 30px';
+  modalMainArea.style.backgroundColor = 'white';
+
+  modalBody.style.width = '100%';
+  modalBody.style.height = '100%';
+  modalBody.style.position = 'fixed';
+  modalBody.style.top = '0';
+  modalBody.style.left = '0';
+  modalBody.style.backgroundColor = 'rgba(0, 0, 0, .7)';
+
+  modalHeddingTextArea.appendChild(modalHeddingText);
+  modalMainArea.appendChild(modalHeddingTextArea);
+  modalBody.appendChild(modalMainArea);
+  app.appendChild(modalBody);
 }
 
 window.addEventListener('load', () => {
   const app = document.querySelector('#app');
+  app.style.fontFamily = 'Inter';
   createHeader(app);
   createHero(app);
   createOurProducts(app);
   createProducts(app);
   createFooter(app);
+  addModal(app);
 })
