@@ -11,14 +11,14 @@ const productList = [
     img: 'img-rice_flour_bread.png',
     price: 5,
     description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit',
-    count: 0,
+    count: 2,
   },
   {
     product: 'Rye Bread',
     img: 'img-rye_bread.png',
     price: 3,
     description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit',
-    count: 0,
+    count: 3,
   },
 ];
 
@@ -130,7 +130,7 @@ const createProducts = (app) => {
         addCartBtn = document.createElement('button');
 
       addCartBtn.addEventListener('click', () => {
-        addModal(app, productList[i]);
+        addItemModal(app, productList[i]);
       });
 
       productBox.style.width = 'calc(100% / 3)';
@@ -206,7 +206,7 @@ const createFooter = (app) => {
   app.appendChild(footer);
 }
 
-const addModal = (app, item) => {
+const addItemModal = (app, item) => {
   const
     modalBody = document.createElement('div'),
     modalMainArea = document.createElement('div'),
@@ -359,6 +359,87 @@ const addModal = (app, item) => {
   app.appendChild(modalBody);
 }
 
+const cartModal = (app) => {
+  const section = document.createElement('section');
+  const wrapper = document.createElement('div');
+
+  const productsRender = () => {
+    for (let i = 0; i < productList.length; i++) {
+      const
+        productBox = document.createElement('div'),
+        productTitle = document.createElement('h3'),
+        productImg = document.createElement('img'),
+        productPrice = document.createElement('div'),
+        currency = document.createTextNode('USD '),
+        productDescription = document.createElement('p'),
+        count = document.createElement('p'),
+        removeCartBtn = document.createElement('button');
+
+      if (productList[i].count === 0) continue;
+
+      removeCartBtn.addEventListener('click', () => {
+        addItemModal(app, productList[i]);
+      });
+
+      productBox.style.width = 'calc(100% / 3)';
+      productImg.style.width = '100%';
+      productImg.style.display = 'block';
+      productImg.style.padding = '0 3rem';
+      productImg.style.marginBottom = '40px';
+      productTitle.style.fontSize = '16px';
+      productTitle.style.fontWeight = 'bold';
+      productTitle.style.marginBottom = '4px';
+      productPrice.style.marginBottom = '4px';
+      productDescription.style.margin = '0 auto 1rem';
+      productDescription.style.width = '250px';
+
+      productTitle.innerText = productList[i].product;
+      productImg.src = `../img/${productList[i].img}`;
+      productPrice.appendChild(currency);
+      productPrice.appendChild(document.createTextNode(productList[i].price));
+      productDescription.innerText = productList[i].description;
+      count.innerText = `count: ${productList[i].count}`
+      removeCartBtn.innerText = 'remove';
+      removeCartBtn.style.appearance = 'none';
+      removeCartBtn.style.border = 'none';
+      removeCartBtn.style.borderRadius = '100px';
+      removeCartBtn.style.color = '#fff';
+      removeCartBtn.style.backgroundColor = '#000';
+      removeCartBtn.style.padding = '.5rem 1rem';
+
+      productBox.appendChild(productImg);
+      productBox.appendChild(productTitle);
+      productBox.appendChild(productPrice);
+      productBox.appendChild(productDescription);
+      productBox.appendChild(count);
+      productBox.appendChild(removeCartBtn);
+
+      wrapper.appendChild(productBox);
+    }
+    return;
+  };
+  productsRender();
+
+  wrapper.style.display = 'flex';
+  wrapper.style.flexWrap = 'wrap';
+  wrapper.style.alignItems = 'center';
+  wrapper.style.justifyContent = 'center';
+  wrapper.style.maxWidth = '1300px';
+  wrapper.style.height = '100%';
+  wrapper.style.margin = '0 auto';
+
+  section.style.position = 'fixed';
+  section.style.top = '0';
+  section.style.left = '0';
+  section.style.width = '100%';
+  section.style.height = '100%';
+  section.style.textAlign = 'center';
+  section.style.backgroundColor = '#E5E5E5';
+  section.appendChild(wrapper);
+
+  app.appendChild(section);
+}
+
 window.addEventListener('load', () => {
   const app = document.querySelector('#app');
   app.style.fontFamily = 'Inter';
@@ -367,4 +448,5 @@ window.addEventListener('load', () => {
   createOurProducts(app);
   createProducts(app);
   createFooter(app);
+  cartModal(app);
 })
