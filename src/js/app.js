@@ -129,6 +129,10 @@ const createProducts = (app) => {
         productDescription = document.createElement('p'),
         addCartBtn = document.createElement('button');
 
+      addCartBtn.addEventListener('click', () => {
+        addModal(app, productList[i]);
+      });
+
       productBox.style.width = 'calc(100% / 3)';
       productImg.style.width = '100%';
       productImg.style.display = 'block';
@@ -202,15 +206,117 @@ const createFooter = (app) => {
   app.appendChild(footer);
 }
 
-const addModal = (app) => {
+const addModal = (app, item) => {
   const
     modalBody = document.createElement('div'),
     modalMainArea = document.createElement('div'),
     modalHeddingTextArea = document.createElement('h3'),
-    modalHeddingText = document.createTextNode('add this item to your cart?');
+    modalHeddingText = document.createTextNode('add this item to your cart?'),
+    addItemDataArea = document.createElement('div'),
+    dataProductArea = document.createElement('p'),
+    dataPriceArea = document.createElement('p'),
+    dataCountArea = document.createElement('p'),
+    countBtnArea = document.createElement('div'),
+    addBtn = document.createElement('button'),
+    removeBtn = document.createElement('button'),
+    footerBtnArea = document.createElement('div'),
+    cancelBtn = document.createElement('button'),
+    confirmBtn = document.createElement('button'),
+    closeBtn = document.createElement('button'),
+    baseItemCount = item.count;
+
+  const removeModal = () => {
+    modalBody.remove();
+  };
+
+  closeBtn.addEventListener('click', () => {
+    item.count = baseItemCount;
+    removeModal();
+  });
+  cancelBtn.addEventListener('click', () => {
+    item.count = baseItemCount;
+    removeModal();
+  });
+  confirmBtn.addEventListener('click', () => {
+    removeModal();
+  });
+
+  addBtn.addEventListener('click', () => {
+    const nowCount = item.count;
+    item.count = nowCount + 1;
+    dataCountArea.innerText = `count: ${item.count}`;
+  });
+  removeBtn.addEventListener('click', () => {
+    const nowCount = item.count;
+    if (nowCount === 0) return;
+    item.count = nowCount - 1;
+    dataCountArea.innerText = `count: ${item.count}`;
+  });
+
+  closeBtn.innerText = 'x';
+  closeBtn.style.position = 'absolute';
+  closeBtn.style.top = '.75rem';
+  closeBtn.style.right = '.75rem';
+  closeBtn.style.appearance = 'none';
+  closeBtn.style.border = 'none';
+  closeBtn.style.borderRadius = '2px';
+  closeBtn.style.padding = '.15rem .5rem';
+  closeBtn.style.backgroundColor = 'rgba(0, 0, 0, .6)';
+  closeBtn.style.color = 'white';
+  closeBtn.style.fontSize = '14px';
+
+  addBtn.innerText = "+";
+  removeBtn.innerText = "-";
+
+  addBtn.style.appearance = 'none';
+  addBtn.style.border = 'none';
+  addBtn.style.borderRadius = '100px';
+  addBtn.style.padding = '.25rem 1rem';
+  addBtn.style.backgroundColor = 'rgba(0, 0, 0, .2)';
+  addBtn.style.boxShadow = '0 4px 4px 0 rgba(0, 0, 0, .2)';
+  addBtn.style.marginLeft = '1rem';
+  addBtn.style.fontSize = '14px';
+  removeBtn.style.appearance = 'none';
+  removeBtn.style.border = 'none';
+  removeBtn.style.borderRadius = '100px';
+  removeBtn.style.padding = '.25rem 1rem';
+  removeBtn.style.backgroundColor = 'rgba(0, 0, 0, .2)';
+  removeBtn.style.boxShadow = '0 4px 4px 0 rgba(0, 0, 0, .2)';
+  removeBtn.style.fontSize = '14px';
+  countBtnArea.style.marginBottom = '2rem'
+
+  cancelBtn.innerText = 'cancel';
+  confirmBtn.innerText = 'confirm';
+  cancelBtn.style.appearance = 'none';
+  cancelBtn.style.border = 'none';
+  cancelBtn.style.borderRadius = '100px';
+  cancelBtn.style.padding = '.25rem 1rem';
+  cancelBtn.style.backgroundColor = 'rgba(0, 0, 0, .2)';
+  cancelBtn.style.boxShadow = '0 4px 4px 0 rgba(0, 0, 0, .2)';
+  cancelBtn.style.fontSize = '14px';
+  confirmBtn.style.appearance = 'none';
+  confirmBtn.style.border = 'none';
+  confirmBtn.style.borderRadius = '100px';
+  confirmBtn.style.padding = '.25rem 1rem';
+  confirmBtn.style.backgroundColor = 'rgba(0, 0, 0, .6)';
+  confirmBtn.style.boxShadow = '0 4px 4px 0 rgba(0, 0, 0, .2)';
+  confirmBtn.style.color = 'white';
+  confirmBtn.style.marginLeft = '1rem';
+  confirmBtn.style.fontSize = '14px';
+  footerBtnArea.style.fontFamily = 'roboto';
+  footerBtnArea.style.textAlign = 'center';
+
+  dataProductArea.innerText = `product: ${item.product}`;
+  dataPriceArea.innerText = `price: USD ${item.price}`;
+  dataCountArea.innerText = `count: ${item.count}`;
+  dataProductArea.style.marginBottom = '0';
+  dataPriceArea.style.marginBottom = '0';
+  dataCountArea.style.marginBottom = '0';
+  addItemDataArea.style.marginBottom = '1rem';
 
   modalHeddingTextArea.style.fontSize = '20px';
   modalHeddingTextArea.style.fontWeight = '400';
+  modalHeddingTextArea.style.marginBottom = '.75rem';
   modalHeddingTextArea.style.paddingBottom = '1rem';
   modalHeddingTextArea.style.borderBottom = '1px solid rgba(0, 0, 0, .6)';
 
@@ -224,6 +330,10 @@ const addModal = (app) => {
   modalMainArea.style.maxHeight = '400px';
   modalMainArea.style.padding = '20px 30px';
   modalMainArea.style.backgroundColor = 'white';
+  modalMainArea.style.display = 'flex';
+  modalMainArea.style.flexDirection = 'column';
+  modalMainArea.style.justifyContent = 'center';
+  modalMainArea.style.borderRadius = '4px';
 
   modalBody.style.width = '100%';
   modalBody.style.height = '100%';
@@ -232,8 +342,19 @@ const addModal = (app) => {
   modalBody.style.left = '0';
   modalBody.style.backgroundColor = 'rgba(0, 0, 0, .7)';
 
+  countBtnArea.appendChild(removeBtn);
+  countBtnArea.appendChild(addBtn);
+  footerBtnArea.appendChild(cancelBtn);
+  footerBtnArea.appendChild(confirmBtn);
+  addItemDataArea.appendChild(dataProductArea);
+  addItemDataArea.appendChild(dataPriceArea);
+  addItemDataArea.appendChild(dataCountArea);
   modalHeddingTextArea.appendChild(modalHeddingText);
   modalMainArea.appendChild(modalHeddingTextArea);
+  modalMainArea.appendChild(addItemDataArea);
+  modalMainArea.appendChild(countBtnArea);
+  modalMainArea.appendChild(footerBtnArea);
+  modalMainArea.appendChild(closeBtn);
   modalBody.appendChild(modalMainArea);
   app.appendChild(modalBody);
 }
@@ -246,5 +367,4 @@ window.addEventListener('load', () => {
   createOurProducts(app);
   createProducts(app);
   createFooter(app);
-  addModal(app);
 })
