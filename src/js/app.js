@@ -38,6 +38,7 @@ const createHeader = (app) => {
   header.style.top = '0';
   header.style.left = '0';
   header.style.width = '100%';
+  header.style.zIndex = '9999';
 
   headerWrapper.style.width = '100%';
   headerWrapper.style.maxWidth = '1300px';
@@ -60,6 +61,16 @@ const createHeader = (app) => {
   cartImg.style.width = '36px';
   cartImg.style.cursor = 'pointer';
   cartImg.id = 'cartBtn';
+
+  cartArea.addEventListener('click', () => {
+    const getCartModal = document.getElementById('cartModal');
+
+    if (getCartModal) {
+      getCartModal.remove();
+    } else {
+      cartModal(app);
+    }
+  });
 
   cartArea.appendChild(cartImg);
 
@@ -435,6 +446,7 @@ const cartModal = (app) => {
   section.style.height = '100%';
   section.style.textAlign = 'center';
   section.style.backgroundColor = '#E5E5E5';
+  section.id = 'cartModal';
   section.appendChild(wrapper);
 
   app.appendChild(section);
@@ -448,5 +460,4 @@ window.addEventListener('load', () => {
   createOurProducts(app);
   createProducts(app);
   createFooter(app);
-  cartModal(app);
 })
