@@ -11,14 +11,14 @@ const productList = [
     img: 'img-rice_flour_bread.png',
     price: 5,
     description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit',
-    count: 2,
+    count: 0,
   },
   {
     product: 'Rye Bread',
     img: 'img-rye_bread.png',
     price: 3,
     description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit',
-    count: 3,
+    count: 0,
   },
 ];
 
@@ -33,6 +33,7 @@ const createHeader = (app) => {
     logoLink = document.createElement('a');
 
   header.style.padding = '1rem 0';
+  header.style.boxSizing = 'border-box';
   header.style.backgroundColor = '#6666664D';
   header.style.position = 'fixed';
   header.style.top = '0';
@@ -47,7 +48,7 @@ const createHeader = (app) => {
   headerWrapper.style.alignItems = 'center';
   headerWrapper.style.justifyContent = 'space-between';
 
-  logoImg.src = '../img/logo-bakery.svg';
+  logoImg.src = 'https://withered-forest-9708.spearly.app/img/logo-bakery.svg';
   logoImg.style.display = 'block';
   logoImg.style.width = '76px';
   logoLink.href = '/';
@@ -56,7 +57,7 @@ const createHeader = (app) => {
   logoArea.appendChild(logoLink);
 
   cartArea.style.justifyContent = 'end';
-  cartImg.src = '../img/icon-cart.svg';
+  cartImg.src = 'https://withered-forest-9708.spearly.app/img/icon-cart.svg';
   cartImg.style.display = 'block';
   cartImg.style.width = '36px';
   cartImg.style.cursor = 'pointer';
@@ -84,7 +85,7 @@ const createHero = (app) => {
   const
     section = document.createElement('section'),
     heroImg = document.createElement('img');
-  heroImg.src = '../img/img-hero.jpg'
+  heroImg.src = 'https://withered-forest-9708.spearly.app/img/img-hero.jpg'
   heroImg.alt = 'hero';
   heroImg.style.width = '100%';
   heroImg.style.display = 'block';
@@ -148,6 +149,7 @@ const createProducts = (app) => {
       productImg.style.width = '100%';
       productImg.style.display = 'block';
       productImg.style.padding = '0 3rem';
+      productImg.style.boxSizing = 'border-box';
       productImg.style.marginBottom = '40px';
       productTitle.style.fontSize = '16px';
       productTitle.style.fontWeight = 'bold';
@@ -157,7 +159,7 @@ const createProducts = (app) => {
       productDescription.style.width = '250px';
 
       productTitle.innerText = productList[i].product;
-      productImg.src = `../img/${productList[i].img}`;
+      productImg.src = `https://withered-forest-9708.spearly.app/img/${productList[i].img}`;
       productPrice.appendChild(currency);
       productPrice.appendChild(document.createTextNode(productList[i].price));
       productDescription.innerText = productList[i].description;
@@ -209,7 +211,7 @@ const createFooter = (app) => {
 
   logoLink.href = '/';
 
-  footerLogo.src = '../img/logo-bakery.svg';
+  footerLogo.src = 'https://withered-forest-9708.spearly.app/img/logo-bakery.svg';
   footerLogo.style.width = '76px';
 
   logoLink.appendChild(footerLogo);
@@ -380,7 +382,10 @@ const cartModal = (app) => {
     totalAmountArea = document.createElement('div'),
     ConfirmPurchaseArea = document.createElement('div'),
     ConfirmPurchaseBtn = document.createElement('button'),
-    ConfirmPurchaseText = document.createTextNode('Confirm purchase');
+    ConfirmPurchaseText = document.createTextNode('Confirm purchase'),
+    notSelectedText = document.createElement('p');
+
+  notSelectedText.innerText = 'No products have been selected.';
 
   const totalAmount = () => {
     let sum = 0;
@@ -438,6 +443,7 @@ const cartModal = (app) => {
       productImg.style.width = '100%';
       productImg.style.display = 'block';
       productImg.style.padding = '0 3rem';
+      productImg.style.boxSizing = 'border-box';
       productImg.style.marginBottom = '40px';
       productImg.style.alignSelf = 'flex-start';
       productTitle.style.fontSize = '16px';
@@ -449,7 +455,7 @@ const cartModal = (app) => {
       productDescription.style.color = 'rgba(0, 0, 0, .5)';
 
       productTitle.innerText = productList[i].product;
-      productImg.src = `../img/${productList[i].img}`;
+      productImg.src = `https://withered-forest-9708.spearly.app/img/${productList[i].img}`;
       productPrice.appendChild(currency);
       productPrice.appendChild(document.createTextNode(productList[i].price));
       productDescription.innerText = productList[i].description;
@@ -474,7 +480,15 @@ const cartModal = (app) => {
     }
     return;
   };
-  productsRender();
+
+  let itemCountSum = 0;
+  for (let i = 0; i < productList.length; i++) {
+    itemCountSum += productList[i].count;
+  }
+
+  if (itemCountSum !== 0) {
+    productsRender();
+  }
 
   productContainer.id = 'productContainer';
   productContainer.style.display = 'flex';
@@ -482,6 +496,7 @@ const cartModal = (app) => {
   productContainer.style.alignItems = 'self-start;';
   productContainer.style.justifyContent = 'center';
   productContainer.style.margin = '0 auto 4rem';
+  productContainer.style.width = '100%';
 
   wrapper.style.maxWidth = '1300px';
   wrapper.style.height = '100%';
@@ -500,7 +515,11 @@ const cartModal = (app) => {
   ConfirmPurchaseBtn.style.padding = '.5rem 1rem';
   ConfirmPurchaseBtn.appendChild(ConfirmPurchaseText)
   ConfirmPurchaseArea.appendChild(ConfirmPurchaseBtn)
-  wrapper.appendChild(ConfirmPurchaseArea);
+  if (itemCountSum !== 0) {
+    wrapper.appendChild(ConfirmPurchaseArea);
+  } else {
+    wrapper.appendChild(notSelectedText);
+  }
 
   section.style.position = 'fixed';
   section.style.top = '0';
@@ -629,10 +648,10 @@ const removeOrAdd = (ev) => {
 window.addEventListener('load', () => {
   const app = document.querySelector('#app');
   app.style.fontFamily = 'Inter';
+  app.style.boxSizing = 'border-box';
   createHeader(app);
   createHero(app);
   createOurProducts(app);
   createProducts(app);
   createFooter(app);
-  purchaseModal(app);
 })
