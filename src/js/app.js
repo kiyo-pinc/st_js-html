@@ -385,7 +385,7 @@ const cartModal = (app) => {
     ConfirmPurchaseText = document.createTextNode('Confirm purchase'),
     notSelectedText = document.createElement('p');
 
-  notSelectedText.innerText = 'No products have been selected.';
+    notSelectedText.innerText = 'No products have been selected.';
 
   const totalAmount = () => {
     let sum = 0;
@@ -482,7 +482,7 @@ const cartModal = (app) => {
   };
 
   let itemCountSum = 0;
-  for (let i = 0; i < productList.length; i++) {
+  for (let i = 0; i < productList.length; i++ ){
     itemCountSum += productList[i].count;
   }
 
